@@ -1,3 +1,6 @@
 [submodule "google-10000-english"]
 	path = google-10000-english
 	url = https://github.com/first20hours/google-10000-english
+[submodule "graph-problems"]
+	path = graph-problems
+	url = https://github.com/Chiel92/graph-problems
