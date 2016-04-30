@@ -40,10 +40,8 @@ def recurse(word: str, graph: WordSearchGrid, last_vertex, forbidden):
 
 def is_word_in_graph(word: str, graph: WordSearchGrid):
     letter = word[0]
-    # print(graph.letters_to_vertices)
     candidates = (graph.letters_to_vertices[letter]
                   if letter in graph.letters_to_vertices else 0)
-    # print(locals())
     if not candidates:
         return False
 
@@ -55,10 +53,8 @@ found_words = []
 with open('./google-10000-english/google-10000-english.txt') as f:
     words = f.readlines()
     for word in words:
-    # for word in ['stake']:
         # Strip \n and make upper
         word = word.upper()[:-1]
-        # print('Trying {}'.format(repr(word)))
         if is_word_in_graph(word, grid):
             found_words.append(word)
 
