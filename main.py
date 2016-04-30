@@ -7,14 +7,13 @@ sys.path.insert(0, current_dir + '/graph-problems')
 from wordgrid import WordSearchGrid
 from bitset import iterate, subtract
 
-grid = WordSearchGrid.from_string(
-"""
-eiit
-rhst
-ecen
-atcs
-"""
-)
+rowsize = int(input('Rowsize: '))
+inputstring = input('Letters: ')
+
+def chunker(seq, size):
+    return [seq[pos:pos + size] for pos in range(0, len(seq), size)]
+
+grid = WordSearchGrid([list(row) for row in chunker(inputstring, rowsize)])
 
 from plot import plot
 
@@ -39,6 +38,9 @@ def recurse(word: str, graph: WordSearchGrid, last_vertex, forbidden):
 
 
 def is_word_in_graph(word: str, graph: WordSearchGrid):
+    if not word:
+        return False
+
     letter = word[0]
     candidates = (graph.letters_to_vertices[letter]
                   if letter in graph.letters_to_vertices else 0)
@@ -50,7 +52,8 @@ def is_word_in_graph(word: str, graph: WordSearchGrid):
 
 found_words = []
 
-with open('./google-10000-english/google-10000-english.txt') as f:
+# with open('./google-10000-english/google-10000-english.txt') as f:
+with open('./english-words/words.txt') as f:
     words = f.readlines()
     for word in words:
         # Strip \n and make upper
@@ -58,7 +61,6 @@ with open('./google-10000-english/google-10000-english.txt') as f:
         if is_word_in_graph(word, grid):
             found_words.append(word)
 
-print(found_words)
 found_words.sort(key=lambda s: len(s))
 for word in found_words:
     print(word)

@@ -4,3 +4,6 @@
 [submodule "graph-problems"]
 	path = graph-problems
 	url = https://github.com/Chiel92/graph-problems
+[submodule "english-words"]
+	path = english-words
+	url = https://github.com/dwyl/english-words
