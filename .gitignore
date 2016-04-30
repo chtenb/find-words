@@ -1,5 +1,10 @@
-# Swap files
+# Output files
+output/
+
+# Tmp files
 *.swp
+*.bak
+*.orig
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

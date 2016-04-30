@@ -4,7 +4,7 @@ from graph import Graph
 from bitset import iterate, size, contains, bit, bits, disjoint, index, domain, tolist
 
 
-class WordGrid(Graph):
+class WordSearchGrid(Graph):
 
     """Graph of letters like in puzzles like ruzzle."""
 
@@ -16,7 +16,8 @@ class WordGrid(Graph):
 
         neighborhoods = {}
         vertices = 0
-        vertices_to_letters = {}
+        self.vertices_to_letters = {}
+        self.letters_to_vertices = {}
 
         width = len(grid[0])
         height = len(grid)
@@ -34,7 +35,7 @@ class WordGrid(Graph):
             for i in [-1, 0, 1]:
                 for j in [-1, 0, 1]:
                     if not 0 == i == j:
-                        result |= cell_to_vertex(i, j)
+                        result |= cell_to_vertex(row + i, col + j)
             return result
 
         vertex = 0
@@ -42,10 +43,27 @@ class WordGrid(Graph):
             for col in range(width):
                 vertex = cell_to_vertex(row, col)
                 neighbors = get_neighbors(row, col)
-                vertices_to_letters[vertex] = grid[row][col]
+
+                letter = grid[row][col].upper()
+
+                self.vertices_to_letters[vertex] = letter
+                if letter not in self.letters_to_vertices:
+                    self.letters_to_vertices[letter] = 0
+                self.letters_to_vertices[letter] |= vertex
+
                 vertices |= vertex
                 neighborhoods[vertex] = neighbors
+                grid[row][col] = (vertex, self.vertices_to_letters[vertex])
 
         Graph.__init__(self, vertices, neighborhoods)
+
+    @staticmethod
+    def from_string(s):
+        """
+        The string s is a string of letters separated by newlines, which indicate the
+        end of a row.
+        """
+        grid = [list(row) for row in s.split('\n') if row]
+        return WordSearchGrid(grid)
 
 
