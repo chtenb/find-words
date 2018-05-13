@@ -1,25 +1,17 @@
-# Enable importing modules from graph-problems folder
 import sys
-import os
-current_dir = os.path.dirname(os.path.realpath(__file__))
-sys.path.insert(0, current_dir + '/graph-problems')
-
-from wordgrid import WordSearchGrid
-from bitset import iterate, subtract
 from search import is_word_in_graph
+from wordgrid import WordSearchGrid
 
-
-rowsize =  int(sys.argv[1])
-inputstring = sys.argv[2]
 
 def chunker(seq, size):
     return [seq[pos:pos + size] for pos in range(0, len(seq), size)]
 
+rowsize =  int(sys.argv[1])
+inputstring = sys.argv[2]
 grid = WordSearchGrid([list(row) for row in chunker(inputstring, rowsize)])
 
 
 found_words = []
-
 # with open('./google-10000-english/google-10000-english.txt') as f:
 # with open('./english-words/words.txt') as f:
 with open('./dutch-words/nederlands.txt') as f:

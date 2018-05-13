@@ -1,3 +1,8 @@
+# Enable importing modules from graph-problems folder
+import sys
+import os
+current_dir = os.path.dirname(os.path.realpath(__file__))
+sys.path.insert(0, current_dir + '/graph-problems')
 
 
 from graph import Graph
@@ -12,6 +17,7 @@ class WordSearchClique(Graph):
         """
         :letters: list of of letters.
         """
+        letters = [l.upper() for l in letters]
         self.letters = letters
 
         neighborhoods = {}
@@ -26,7 +32,7 @@ class WordSearchClique(Graph):
             vertex = 1 << i
             neighbors = all_vertices
 
-            self.vertices_to_letters[vertex] = letter.upper()
+            self.vertices_to_letters[vertex] = letter
             if letter not in self.letters_to_vertices:
                 self.letters_to_vertices[letter] = 0
             self.letters_to_vertices[letter] |= vertex
@@ -41,6 +47,6 @@ class WordSearchClique(Graph):
         The string s is a string of letters separated by newlines, which indicate the
         end of a row.
         """
-        return WordSearchGrid(list(s))
+        return WordSearchClique(list(s))
 
 
