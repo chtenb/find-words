@@ -6,6 +6,7 @@ sys.path.insert(0, current_dir + '/graph-problems')
 
 from wordgrid import WordSearchGrid
 from bitset import iterate, subtract
+from search import is_word_in_graph
 
 
 rowsize =  int(sys.argv[1])
@@ -15,36 +16,6 @@ def chunker(seq, size):
     return [seq[pos:pos + size] for pos in range(0, len(seq), size)]
 
 grid = WordSearchGrid([list(row) for row in chunker(inputstring, rowsize)])
-
-
-def recurse(word: str, graph: WordSearchGrid, last_vertex, forbidden):
-    if not word:
-        return True
-
-    letter = word[0]
-
-    if letter not in graph.letters_to_vertices:
-        return False
-
-    candidates = subtract(graph.letters_to_vertices[letter] &
-                          graph.neighborhoods[last_vertex], forbidden)
-    if not candidates:
-        return False
-
-    return any(recurse(word[1:], graph, v, forbidden | v) for v in iterate(candidates))
-
-
-def is_word_in_graph(word: str, graph: WordSearchGrid):
-    if not word:
-        return False
-
-    letter = word[0]
-    candidates = (graph.letters_to_vertices[letter]
-                  if letter in graph.letters_to_vertices else 0)
-    if not candidates:
-        return False
-
-    return any(recurse(word[1:], graph, v, v) for v in iterate(candidates))
 
 
 found_words = []
