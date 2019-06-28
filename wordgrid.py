@@ -49,7 +49,7 @@ class WordSearchGrid(Graph):
                 vertex = cell_to_vertex(row, col)
                 neighbors = get_neighbors(row, col)
 
-                letter = grid[row][col].upper()
+                letter = grid[row][col].lower()
 
                 self.vertices_to_letters[vertex] = letter
                 if letter not in self.letters_to_vertices:

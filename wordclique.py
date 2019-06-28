@@ -17,7 +17,7 @@ class WordSearchClique(Graph):
         """
         :letters: list of of letters.
         """
-        letters = [l.upper() for l in letters]
+        letters = [l.lower() for l in letters]
         self.letters = letters
 
         neighborhoods = {}
