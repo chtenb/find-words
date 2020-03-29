@@ -7,11 +7,10 @@ sys.path.insert(0, current_dir + '/graph-problems')
 
 from graph import Graph
 from bitset import iterate, size, contains, bit, bits, disjoint, index, domain, tolist
+from collections import defaultdict
 
 
 class WordSearchClique(Graph):
-
-    """Graph of letters like in puzzles like ruzzle."""
 
     def __init__(self, letters: list):
         """
@@ -22,8 +21,8 @@ class WordSearchClique(Graph):
 
         neighborhoods = {}
         vertices = 0
-        self.vertices_to_letters = {}
-        self.letters_to_vertices = {}
+        self.vertices_to_letters = defaultdict(lambda: 0)
+        self.letters_to_vertices = defaultdict(lambda: 0)
 
         vertex = 0
         nr_letters = len(letters)
@@ -43,10 +42,6 @@ class WordSearchClique(Graph):
 
     @staticmethod
     def from_string(s):
-        """
-        The string s is a string of letters separated by newlines, which indicate the
-        end of a row.
-        """
         return WordSearchClique(list(s))
 
 

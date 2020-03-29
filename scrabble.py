@@ -4,8 +4,7 @@ from pyshellout import *
 from search import is_word_in_graph
 from wordclique import WordSearchClique
 
-# dictionary = './dutch-words/nederlands.txt'
-dictionary = './dutch-words/Dutch.txt'
+dictionary = './dutch-words/words.txt'
 
 try:
     inputstring = sys.argv[1]
@@ -19,7 +18,7 @@ with open(dictionary) as f:
     words = f.readlines()
     if inputstring == None:
         for word in words:
-            print(word)
+            print(word.lower()[:-1])
         sys.exit()
     for word in words:
         # Strip \n and make lower

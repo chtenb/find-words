@@ -7,6 +7,7 @@ sys.path.insert(0, current_dir + '/graph-problems')
 
 from graph import Graph
 from bitset import iterate, size, contains, bit, bits, disjoint, index, domain, tolist
+from collections import defaultdict
 
 
 class WordSearchGrid(Graph):
@@ -21,8 +22,8 @@ class WordSearchGrid(Graph):
 
         neighborhoods = {}
         vertices = 0
-        self.vertices_to_letters = {}
-        self.letters_to_vertices = {}
+        self.vertices_to_letters = defaultdict(lambda: 0)
+        self.letters_to_vertices = defaultdict(lambda: 0)
 
         width = len(grid[0])
         height = len(grid)
