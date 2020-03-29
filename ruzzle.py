@@ -6,25 +6,32 @@ from wordgrid import WordSearchGrid
 def chunker(seq, size):
     return [seq[pos:pos + size] for pos in range(0, len(seq), size)]
 
-rowsize =  int(sys.argv[1])
+rowsize =  4
+language = sys.argv[1]
 inputstring = sys.argv[2]
 grid = WordSearchGrid([list(row) for row in chunker(inputstring, rowsize)])
 
+if language == 'dutch':
+    scoremap = dict(zip('qwertyuiopasdfghjklzxcvbnm', [int(i) for i in '95122822141224344335854413']))
+    wordfilename = './dutch-words/words.txt'
+elif language == 'english':
+    scoremap = dict(zip('qwertyuiopasdfghjklzxcvbnm', [int(i) for i in '94111411131124248519834313']))
+    wordfilename = './english-words/words.txt'
+elif language == 'swedish':
+    scoremap = dict(zip('abcdefghijklmnoprstuvxyzäåö', [int(i) for i in '148113221721212411143879344']))
+    wordfilename = './swedish-words/Swedish.dic.txt'
+
 
 found_words = []
-# with open('./google-10000-english/google-10000-english.txt') as f:
-# with open('./english-words/words.txt') as f:
-with open('./dutch-words/nederlands.txt') as f:
+with open(wordfilename) as f:
     words = f.readlines()
     for word in words:
-        # Strip \n and make upper
-        word = word.upper()[:-1]
+        # Strip \n and make lower
+        word = word.lower()[:-1]
         if is_word_in_graph(word, grid):
             found_words.append(word)
 
-scoremap = dict(zip('QWERTYUIOPASDFGHJKLZXCVBNM', [int(i) for i in '95122822141224344335854413']))
 def word_score(word):
-    '''Assuming dutch ruzzle score'''
     try:
         return sum(scoremap[letter] for letter in word)
     except KeyError:
