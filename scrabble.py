@@ -4,17 +4,23 @@ from pyshellout import *
 from search import is_word_in_graph
 from wordclique import WordSearchClique
 
-dictionary = './dutch-words/words.txt'
+language = sys.argv[1]
+inputstring = sys.argv[2]
 
-try:
-    inputstring = sys.argv[1]
-except IndexError:
-    inputstring = None
-else:
-    graph = WordSearchClique.from_string(inputstring)
+if language == 'dutch':
+    scoremap = dict(zip('qwertyuiopasdfghjklzxcvbnm', [int(i) for i in '95122822141224344335854413']))
+    wordfilename = './dutch-words/words.txt'
+elif language == 'english':
+    scoremap = dict(zip('qwertyuiopasdfghjklzxcvbnm', [int(i) for i in '94111411131124248519834313']))
+    wordfilename = './english-words/words.txt'
+elif language == 'swedish':
+    scoremap = dict(zip('abcdefghijklmnoprstuvxyzäåö', [int(i) for i in '148113221721212411143879344']))
+    wordfilename = './swedish-words/Swedish.dic.txt'
+
+graph = WordSearchClique.from_string(inputstring)
 
 found_words = []
-with open(dictionary) as f:
+with open(wordfilename, encoding='utf-8') as f:
     words = f.readlines()
     if inputstring == None:
         for word in words:
