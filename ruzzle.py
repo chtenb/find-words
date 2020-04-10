@@ -2,26 +2,13 @@ import sys
 from search import is_word_in_graph
 from wordgrid import WordSearchGrid
 
+from common import unix_stdout, inputstring, scoremap, wordfilename
 
 def chunker(seq, size):
     return [seq[pos:pos + size] for pos in range(0, len(seq), size)]
 
-language = sys.argv[1]
-inputstring = sys.argv[2]
-
-if language == 'dutch':
-    scoremap = dict(zip('qwertyuiopasdfghjklzxcvbnm', [int(i) for i in '95122822141224344335854413']))
-    wordfilename = './dutch-words/all.txt'
-elif language == 'english':
-    scoremap = dict(zip('qwertyuiopasdfghjklzxcvbnm', [int(i) for i in '94111411131124248519834313']))
-    wordfilename = './english-words/words.txt'
-elif language == 'swedish':
-    scoremap = dict(zip('abcdefghijklmnoprstuvxyzäåö', [int(i) for i in '148113221721212411143879344']))
-    wordfilename = './swedish-words/Swedish.dic.txt'
-
 rowsize =  4
 grid = WordSearchGrid([list(row) for row in chunker(inputstring, rowsize)])
-
 
 found_words = []
 with open(wordfilename, encoding='utf-8') as f:
@@ -40,4 +27,4 @@ def word_score(word):
 
 found_words.sort(key=lambda s: word_score(s))
 for word in found_words:
-    print(word)
+    print(word, file=unix_stdout)
