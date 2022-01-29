@@ -13,7 +13,7 @@ inputstring = sys.argv[2]
 
 if language == 'dutch':
     scoremap = dict(zip('qwertyuiopasdfghjklzxcvbnm', [int(i) for i in '95122822141224344335854413']))
-    wordfilename = './dutch-words/words.txt'
+    wordfilename = './dutch-words/basiswoorden-gekeurd.txt'
 elif language == 'english':
     scoremap = dict(zip('qwertyuiopasdfghjklzxcvbnm', [int(i) for i in '94111411131124248519834313']))
     wordfilename = './english-words/words.txt'
