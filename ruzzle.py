@@ -25,6 +25,6 @@ def word_score(word):
     except KeyError:
         return 0
 
-found_words.sort(key=lambda s: word_score(s))
+found_words.sort(key=word_score)
 for word in found_words:
     print(word, file=unix_stdout)
